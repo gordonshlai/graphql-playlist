@@ -97,7 +97,30 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
+const Mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    // name of the query (the spelling here maters)
+    addAuthor: {
+      type: AuthorType, // the type to mutate
+      args: {
+        name: { type: GraphQLString },
+        age: { type: GraphQLInt },
+      }, // the argument where the frontend sends along
+      resolve(parent, args) {
+        // new instant from the model
+        let author = new Author({
+          name: args.name,
+          age: args.age,
+        });
+        return author.save(); // save the instant to the database and return the saved data
+      },
+    },
+  },
+});
+
 /* Defining which query we are allowing the frontend to query from */
 module.exports = new GraphQLSchema({
-  query: RootQuery,
+  query: RootQuery, // query key, allow the frontend to make queries
+  mutation: Mutation, // mutation key, allow the frontend to make mutations
 });
