@@ -22,10 +22,7 @@ const AddBook = ({ getAuthorsQuery, addBookMutation }) => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    // addBookMutation();
-    console.log(name, "name");
-    console.log(genre, "genre");
-    console.log(authorId, "authorId");
+    addBookMutation({ variables: { name, genre, authorId } });
   };
 
   return (
