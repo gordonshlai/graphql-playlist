@@ -5,7 +5,7 @@ import { flowRight as compose } from "lodash";
 import {
   getAuthorsQuery,
   addBookMutation,
-  getBookQuery,
+  getBooksQuery,
 } from "../queries/queries";
 
 const AddBook = ({ getAuthorsQuery, addBookMutation }) => {
@@ -27,8 +27,8 @@ const AddBook = ({ getAuthorsQuery, addBookMutation }) => {
   const submitForm = (e) => {
     e.preventDefault();
     addBookMutation({
-      variables: { name, genre, authorId },
-      refetchQueries: [{ query: getBookQuery }], // run the specified query
+      variables: { name, genre, authorId }, // query variables
+      refetchQueries: [{ query: getBooksQuery }], // run the specified query
     });
   };
 
